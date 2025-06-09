@@ -85,47 +85,60 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              const Spacer(),
-              const Text(
-                "AI Utility Tool",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white,
+              const Center(
+                child: Text(
+                  "AI Utility Tool",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: DropdownButton<String>(
-                  value: selectedTone,
-                  underline: const SizedBox(),
-                  icon: const Icon(Icons.tune, color: Colors.black),
-                  dropdownColor: Colors.white,
-                  style: const TextStyle(color: Colors.black),
-                  items: ['Friendly', 'Formal', 'Casual'].map((String tone) {
-                    return DropdownMenuItem<String>(
-                      value: tone,
-                      child: Text(tone),
-                    );
-                  }).toList(),
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      setState(() {
-                        selectedTone = value;
-                      });
-                    }
-                  },
+              Positioned(
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: selectedTone,
+                      icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
+                      dropdownColor: Colors.white,
+                      style: const TextStyle(color: Colors.black),
+                      items: ['Friendly', 'Formal', 'Casual'].map((String tone) {
+                        return DropdownMenuItem<String>(
+                          value: tone,
+                          child: Text(tone),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        if (value != null) {
+                          setState(() {
+                            selectedTone = value;
+                          });
+                        }
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],
